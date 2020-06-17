@@ -1,0 +1,45 @@
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+
+  .one {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    border-radius: 20px;
+    background-color: rgb(107, 182, 184);
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(171, 169, 169);
+  }
+
+  .button:hover {
+    background-color: rgb(43, 79, 81);
+  }
+
+  .button:active {
+    background-color: rgb(43, 79, 81);
+    box-shadow: 0 5px rgb(36, 36, 36);
+    transform: translateY(4px);
+  }
+
+  .fileImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
