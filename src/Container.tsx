@@ -1,32 +1,39 @@
 import React, { memo } from "react";
-import { FileImg } from "./FileImg";
+import FileImg from "./FileImg";
 import "./App.scss";
+import Column from "./Column";
+import styled from "styled-components";
 
-export const Container: React.FC = memo(function Container() {
+const Container = memo(function Container() {
   return (
-    <div>
-      <div className="buttonGroup">
-        <div className="one">
-          <div className="button">반주 midi 파일 생성</div>
-          <div style={{ overflow: "hidden", clear: "both" }}>
-            <FileImg name="반주" step={1} />
-          </div>
+    <Row>
+      <Column xs={12} sm={3} md={3} lg={3}>
+        <div style={{ overflow: "hidden", clear: "both" }}>
+          <FileImg name="반주" step={1} />
         </div>
+      </Column>
 
-        <div className="one">
-          <div className="button">보이싱 midi 파일 생성</div>
-          <div style={{ overflow: "hidden", clear: "both" }}>
-            <FileImg name="보이싱" step={2} />
-          </div>
+      <Column xs={12} sm={3} md={3} lg={3}>
+        <div style={{ overflow: "hidden", clear: "both" }}>
+          <FileImg name="보이싱" step={2} />
         </div>
+      </Column>
 
-        <div className="one">
-          <div className="button">멜로디 midi 파일 생성</div>
-          <div style={{ overflow: "hidden", clear: "both" }}>
-            <FileImg name="멜로디" step={3} />
-          </div>
+      <Column xs={12} sm={3} md={3} lg={3}>
+        <div style={{ overflow: "hidden", clear: "both" }}>
+          <FileImg name="멜로디" step={3} />
         </div>
-      </div>
-    </div>
+      </Column>
+    </Row>
   );
 });
+
+export default Container;
+
+const Row = styled.div`
+  &::after {
+    content: "";
+    clear: both;
+    display: flex;
+  }
+`;

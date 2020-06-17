@@ -1,16 +1,25 @@
 import React from "react";
-import Main from "./Main";
+import Container from "./Container";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import styled from "styled-components";
 
 function App() {
   return (
-    <div className="App">
+    <AppContainer>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <DndProvider backend={HTML5Backend}>
-        <Main />
+        <Container />
       </DndProvider>
-    </div>
+    </AppContainer>
   );
 }
 
 export default App;
+
+const AppContainer = styled.div`
+  &,
+  & * {
+    box-sizing: border-box;
+  }
+`;
