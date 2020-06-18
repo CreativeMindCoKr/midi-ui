@@ -1,22 +1,24 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useDrag, DragSourceMonitor, DragPreviewImage } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import midi1 from "./assets/svg/midi-1.svg";
 import midi2 from "./assets/svg/midi-2.svg";
 import midi3 from "./assets/svg/midi-3.svg";
 import empty from "./assets/svg/empty.svg";
-import "./App.scss";
 import styled from "styled-components";
+import Column from "./Column";
 
 export interface FileProps {
   name: string;
   step: number;
-  onToggleForbidDrag?: () => void;
+}
+
+interface FileCellType {
+  isMove: boolean;
+  isActive: boolean;
 }
 
 function FileImg({ name, step }: FileProps) {
-  const [forbidDrag, setForbidDrag] = useState(false);
-
   function dragStart(event: any, url: string) {
     // var img = new Image();
     // img.src = midi1;
@@ -26,11 +28,11 @@ function FileImg({ name, step }: FileProps) {
     event.dataTransfer.effectAllowed = "copyLink";
   }
 
-  const onToggleForbidDrag = useCallback(() => {
-    setForbidDrag(!forbidDrag);
-  }, [forbidDrag]);
+  // const onToggleForbidDrag = useCallback(() => {
+  //   setForbidDrag(!forbidDrag);
+  // }, [forbidDrag]);
 
-  const [{ opacity, cursor }, drag, preview] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     item: { name, step, type: ItemTypes.File },
     // canDrag: !forbidDrag,
     end: (item: { name: string } | undefined, monitor: DragSourceMonitor) => {
@@ -40,24 +42,20 @@ function FileImg({ name, step }: FileProps) {
     },
 
     collect: (monitor) => ({
-      opacity: monitor.isDragging() ? 0.4 : 1,
-      cursor: forbidDrag ? "grabbing" : "default",
+      isDragging: monitor.isDragging(),
     }),
   });
 
-  if (step === 1) {
-    return (
-      <ButtonGroup>
-        <DragPreviewImage connect={preview} src={midi1} />
-
-        <ButtonArea>
-          <Button onClick={onToggleForbidDrag}>반주 midi 파일 생성</Button>
+  return (
+    <Container>
+      {/* <Column xs={12} sm={12} md={12} lg={12}>
+        <FileArea>
+          <DragPreviewImage connect={preview} src={midi1} />
           <Drag
             ref={drag}
-            style={{ opacity, cursor }}
             draggable
             onDragStart={(event) => {
-              if (forbidDrag) {
+              if (forbidDrag[0].empty) {
                 dragStart(
                   event,
                   "text/plain:sample1.mid:https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid"
@@ -66,32 +64,36 @@ function FileImg({ name, step }: FileProps) {
                 event.preventDefault();
               }
             }}
+            onTouchStart={(event) => {
+              if (forbidDrag[0].empty) {
+                setTimeout(() => {
+                  const response = {
+                    file:
+                      "https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid",
+                  };
+                  window.location.href = response.file;
+                }, 100);
+              }
+            }}
           >
-            <Img>
-              {forbidDrag ? (
-                <img width="100" height="200" alt="drag out" src={midi1} />
-              ) : (
-                <img width="100" height="200" alt="drag out" src={empty} />
-              )}
-            </Img>
-            {name}
+            <FileCell isActive={forbidDrag[0].empty} isMove={isDragging}>
+              <Img>
+                {forbidDrag[0].empty ? (
+                  <img width="32" height="32" alt="drag out" src={midi1} />
+                ) : (
+                  <img width="32" height="32" alt="drag out" src={empty} />
+                )}
+              </Img>
+              반주
+            </FileCell>
           </Drag>
-        </ButtonArea>
-      </ButtonGroup>
-    );
-  } else if (step === 2) {
-    return (
-      <ButtonGroup>
-        <DragPreviewImage connect={preview} src={midi2} />
 
-        <ButtonArea>
-          <Button onClick={onToggleForbidDrag}>보이싱 midi 파일 생성</Button>
+          <DragPreviewImage connect={preview} src={midi2} />
           <Drag
             ref={drag}
-            style={{ opacity, cursor }}
             draggable
             onDragStart={(event) => {
-              if (forbidDrag) {
+              if (forbidDrag[1].empty) {
                 dragStart(
                   event,
                   "text/plain:sample2.mid:https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid"
@@ -100,112 +102,183 @@ function FileImg({ name, step }: FileProps) {
                 event.preventDefault();
               }
             }}
-          >
-            <Img>
-              {forbidDrag ? (
-                <img width="100" height="200" alt="drag out" src={midi2} />
-              ) : (
-                <img width="100" height="200" alt="drag out" src={empty} />
-              )}
-            </Img>
-            {name}
-          </Drag>
-        </ButtonArea>
-      </ButtonGroup>
-    );
-  } else {
-    return (
-      <ButtonGroup>
-        <DragPreviewImage connect={preview} src={midi3} />
-
-        <ButtonArea>
-          <Button onClick={onToggleForbidDrag}>멜로디 midi 파일 생성</Button>
-          <Drag
-            ref={drag}
-            style={{ opacity, cursor }}
-            draggable
-            onDragStart={(event) => {
-              if (forbidDrag) {
-                dragStart(
-                  event,
-                  "text/plain:sample3.mid:https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid"
-                );
-              } else {
-                event.preventDefault();
+            onTouchStart={(event) => {
+              if (forbidDrag[1].empty) {
+                setTimeout(() => {
+                  const response = {
+                    file:
+                      "https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid",
+                  };
+                  window.location.href = response.file;
+                }, 100);
               }
             }}
           >
-            <Img>
-              {forbidDrag ? (
-                <img width="100" height="200" alt="drag out" src={midi3} />
-              ) : (
-                <img width="100" height="200" alt="drag out" src={empty} />
-              )}
-            </Img>
-            {name}
+            <FileCell isActive={forbidDrag[0].empty} isMove={isDragging}>
+              <Img>
+                {forbidDrag[1].empty ? (
+                  <img width="32" height="32" alt="drag out" src={midi2} />
+                ) : (
+                  <img width="32" height="32" alt="drag out" src={empty} />
+                )}
+              </Img>
+              보이싱
+            </FileCell>
           </Drag>
-        </ButtonArea>
-      </ButtonGroup>
-    );
-  }
+        </FileArea>
+      </Column> */}
+    </Container>
+  );
+
+  //   if (step === 1) {
+  //     return (
+  //       <ButtonGroup>
+  //         <DragPreviewImage connect={preview} src={midi1} />
+
+  //         <ButtonArea>
+  //           <Button onClick={onToggleForbidDrag}>반주 midi 파일 생성</Button>
+  //           <Drag
+  //             ref={drag}
+  //             style={{ opacity, cursor }}
+  //             draggable
+  //             onDragStart={(event) => {
+  //               if (forbidDrag) {
+  //                 dragStart(
+  //                   event,
+  //                   "text/plain:sample1.mid:https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid"
+  //                 );
+  //               } else {
+  //                 event.preventDefault();
+  //               }
+  //             }}
+  //             onTouchStart={(event) => {
+  //               if (forbidDrag) {
+  //                 setTimeout(() => {
+  //                   const response = {
+  //                     file:
+  //                       "https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid",
+  //                   };
+  //                   window.location.href = response.file;
+  //                 }, 100);
+  //               }
+  //             }}
+  //           >
+  //             <Img>
+  //               {forbidDrag ? (
+  //                 <img width="100" height="200" alt="drag out" src={midi1} />
+  //               ) : (
+  //                 <img width="100" height="200" alt="drag out" src={empty} />
+  //               )}
+  //             </Img>
+  //             {name}
+  //           </Drag>
+  //         </ButtonArea>
+  //       </ButtonGroup>
+  //     );
+  //   } else if (step === 2) {
+  //     return (
+  //       <ButtonGroup>
+  //         <DragPreviewImage connect={preview} src={midi2} />
+
+  //         <ButtonArea>
+  //           <Button onClick={onToggleForbidDrag}>보이싱 midi 파일 생성</Button>
+  //           <Drag
+  //             ref={drag}
+  //             style={{ opacity, cursor }}
+  //             draggable
+  //             onDragStart={(event) => {
+  //               if (forbidDrag) {
+  //                 dragStart(
+  //                   event,
+  //                   "text/plain:sample2.mid:https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid"
+  //                 );
+  //               } else {
+  //                 event.preventDefault();
+  //               }
+  //             }}
+  //           >
+  //             <Img>
+  //               {forbidDrag ? (
+  //                 <img width="100" height="200" alt="drag out" src={midi2} />
+  //               ) : (
+  //                 <img width="100" height="200" alt="drag out" src={empty} />
+  //               )}
+  //             </Img>
+  //             {name}
+  //           </Drag>
+  //         </ButtonArea>
+  //       </ButtonGroup>
+  //     );
+  //   } else {
+  //     return (
+  //       <ButtonGroup>
+  //         <DragPreviewImage connect={preview} src={midi3} />
+
+  //         <ButtonArea>
+  //           <Button onClick={onToggleForbidDrag}>멜로디 midi 파일 생성</Button>
+  //           <Drag
+  //             ref={drag}
+  //             style={{ opacity, cursor }}
+  //             draggable
+  //             onDragStart={(event) => {
+  //               if (forbidDrag) {
+  //                 dragStart(
+  //                   event,
+  //                   "text/plain:sample3.mid:https://midi.s3.ap-northeast-2.amazonaws.com/sample.mid"
+  //                 );
+  //               } else {
+  //                 event.preventDefault();
+  //               }
+  //             }}
+  //           >
+  //             <Img>
+  //               {forbidDrag ? (
+  //                 <img width="100" height="200" alt="drag out" src={midi3} />
+  //               ) : (
+  //                 <img width="100" height="200" alt="drag out" src={empty} />
+  //               )}
+  //             </Img>
+  //             {name}
+  //           </Drag>
+  //         </ButtonArea>
+  //       </ButtonGroup>
+  //     );
+  //   }
 }
 
 export default FileImg;
 
-const ButtonGroup = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: row;
   margin: 20px;
+  width: 700px;
 `;
 
-const ButtonArea = styled.div`
+const FileCell = styled.div<FileCellType>`
+  width: 100%;
+  height: 30px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-`;
-
-const Button = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 60px;
-  border-radius: 20px;
-  background-color: rgb(107, 182, 184);
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
-  cursor: pointer;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px rgb(171, 169, 169);
+  opacity: ${(props) => (props.isMove ? 0.4 : 1)};
+  cursor: ${(props) => (props.isActive ? "grabbing" : "default")};
 
   &:hover {
-    background-color: rgb(43, 79, 81);
-  }
-
-  &:active {
-    background-color: rgb(43, 79, 81);
-    box-shadow: 0 5px rgb(36, 36, 36);
-    transform: translateY(4px);
+    background-color: rgb(107, 182, 184);
   }
 `;
 
 const Drag = styled.div`
-  border: 1px dashed gray;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  margin-right: 1.5rem;
-  margin: 1.5rem;
   cursor: grabbing;
   float: left;
-  width: 150px;
-  text-align: right;
+  width: 100%;
+  padding: 1rem 1rem;
 `;
 
 const Img = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 `;
