@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/midi-ui/static/css/main.7e2e5027.chunk.css",
-    "main.js": "/midi-ui/static/js/main.2def64cf.chunk.js",
-    "main.js.map": "/midi-ui/static/js/main.2def64cf.chunk.js.map",
-    "runtime-main.js": "/midi-ui/static/js/runtime-main.702b954a.js",
-    "runtime-main.js.map": "/midi-ui/static/js/runtime-main.702b954a.js.map",
-    "static/js/2.84023d76.chunk.js": "/midi-ui/static/js/2.84023d76.chunk.js",
-    "static/js/2.84023d76.chunk.js.map": "/midi-ui/static/js/2.84023d76.chunk.js.map",
+    "main.css": "/midi-ui/static/css/main.58375d18.chunk.css",
+    "main.js": "/midi-ui/static/js/main.12365622.chunk.js",
+    "main.js.map": "/midi-ui/static/js/main.12365622.chunk.js.map",
+    "runtime-main.js": "/midi-ui/static/js/runtime-main.6da2c2ec.js",
+    "runtime-main.js.map": "/midi-ui/static/js/runtime-main.6da2c2ec.js.map",
+    "static/js/2.f891252b.chunk.js": "/midi-ui/static/js/2.f891252b.chunk.js",
+    "static/js/2.f891252b.chunk.js.map": "/midi-ui/static/js/2.f891252b.chunk.js.map",
     "index.html": "/midi-ui/index.html",
-    "precache-manifest.8937b95d771d4285eeff9e69d60a0f12.js": "/midi-ui/precache-manifest.8937b95d771d4285eeff9e69d60a0f12.js",
+    "precache-manifest.49d9fc33c23c47b128e776c9e9eeeb30.js": "/midi-ui/precache-manifest.49d9fc33c23c47b128e776c9e9eeeb30.js",
     "service-worker.js": "/midi-ui/service-worker.js",
-    "static/css/main.7e2e5027.chunk.css.map": "/midi-ui/static/css/main.7e2e5027.chunk.css.map",
-    "static/js/2.84023d76.chunk.js.LICENSE.txt": "/midi-ui/static/js/2.84023d76.chunk.js.LICENSE.txt",
+    "static/css/main.58375d18.chunk.css.map": "/midi-ui/static/css/main.58375d18.chunk.css.map",
+    "static/js/2.f891252b.chunk.js.LICENSE.txt": "/midi-ui/static/js/2.f891252b.chunk.js.LICENSE.txt",
     "static/media/empty.svg": "/midi-ui/static/media/empty.c41f6908.svg",
-    "static/media/midi-1.svg": "/midi-ui/static/media/midi-1.2830a009.svg",
-    "static/media/midi-2.svg": "/midi-ui/static/media/midi-2.a305106d.svg",
-    "static/media/midi-3.svg": "/midi-ui/static/media/midi-3.bd9bac53.svg"
+    "static/media/midi-1.svg": "/midi-ui/static/media/midi-1.e5e05205.svg",
+    "static/media/midi-2.svg": "/midi-ui/static/media/midi-2.041aef94.svg",
+    "static/media/midi-3.svg": "/midi-ui/static/media/midi-3.7f4c94f0.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.702b954a.js",
-    "static/js/2.84023d76.chunk.js",
-    "static/css/main.7e2e5027.chunk.css",
-    "static/js/main.2def64cf.chunk.js"
+    "static/js/runtime-main.6da2c2ec.js",
+    "static/js/2.f891252b.chunk.js",
+    "static/css/main.58375d18.chunk.css",
+    "static/js/main.12365622.chunk.js"
   ]
 }
