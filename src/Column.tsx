@@ -23,8 +23,6 @@ const BREAK_POINT_PC = 1200;
 const Col = styled.div`
   float: left;
   width: ${({ xs }: any) => (xs ? `${calcWidthPercent(xs)}%` : `100%`)};
-  /* min-width: 300px;
-  max-width: 500px; */
   padding: 1rem;
 
   @media only screen and (min-width: ${BREAK_POINT_MOBILE}px) {

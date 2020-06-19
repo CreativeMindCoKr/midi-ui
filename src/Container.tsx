@@ -5,53 +5,59 @@ import Column from "./Column";
 import styled from "styled-components";
 
 const Container = memo(function Container() {
-  // const [forbidDrag, setForbidDrag] = useState([
-  //   {
-  //     id: 0,
-  //     empty: false,
-  //   },
-  //   {
-  //     id: 1,
-  //     empty: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     empty: false,
-  //   },
-  // ]);
+  const [forbidDrag, setForbidDrag] = useState([
+    {
+      id: 0,
+      empty: false,
+    },
+    {
+      id: 1,
+      empty: false,
+    },
+    {
+      id: 2,
+      empty: false,
+    },
+  ]);
 
-  // function onToggleForbidDrag(index: number) {
-  //   setForbidDrag(
-  //     forbidDrag.map((file) =>
-  //       file.id === index ? { ...file, empty: !file.empty } : file
-  //     )
-  //   );
-  // }
-  const [forbidDrag, setForbidDrag] = useState(false);
+  function onToggleForbidDrag(index: number) {
+    setForbidDrag(
+      forbidDrag.map((file) =>
+        file.id === index ? { ...file, empty: !file.empty } : file
+      )
+    );
+  }
+  // const [forbidDrag, setForbidDrag] = useState(false);
 
-  const onToggleForbidDrag = useCallback(() => {
-    setForbidDrag(!forbidDrag);
-  }, [forbidDrag]);
+  // const onToggleForbidDrag = useCallback(() => {
+  //   setForbidDrag(!forbidDrag);
+  // }, [forbidDrag]);
 
-  useEffect(() => {
-    console.log("change state: ", forbidDrag);
-  }, [forbidDrag]);
+  // useEffect(() => {
+  //   console.log("change state: ", forbidDrag);
+  // }, [forbidDrag]);
 
   return (
     <Row>
       <Column xs={12} sm={3} md={3} lg={3}>
         <ButtonArea>
-          <Button onClick={onToggleForbidDrag}>반주 midi 파일 생성</Button>
-          <Button onClick={onToggleForbidDrag}>보이싱 midi 파일 생성</Button>
-          <Button onClick={onToggleForbidDrag}>멜로디 midi 파일 생성</Button>
+          <Button onClick={(e) => onToggleForbidDrag(0)}>
+            반주 midi 파일 생성
+          </Button>
+          <Button onClick={(e) => onToggleForbidDrag(1)}>
+            보이싱 midi 파일 생성
+          </Button>
+          <Button onClick={(e) => onToggleForbidDrag(2)}>
+            멜로디 midi 파일 생성
+          </Button>
         </ButtonArea>
       </Column>
 
       <Column xs={12} sm={12} md={3} lg={3}>
         <FileArea>
-          <FileImg name="반주" step={1} />
-          <FileImg name="보이싱" step={2} />
-          <FileImg name="멜로디" step={3} />
+          <FileImg name="반주" step={1} forbidDrag={forbidDrag[0].empty} />
+          <FileImg name="보이싱" step={2} forbidDrag={forbidDrag[1].empty} />
+          <FileImg name="멜로디" step={3} forbidDrag={forbidDrag[2].empty} />
         </FileArea>
       </Column>
 
@@ -73,6 +79,7 @@ const Container = memo(function Container() {
 export default Container;
 
 const Row = styled.div`
+  margin: 20px;
   &::after {
     content: "";
     clear: both;
